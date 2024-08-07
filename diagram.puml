@@ -1,0 +1,717 @@
+@startuml
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.ResponseRevGeoCoding {
+~ List<Result> results
+~ String status
++ List<Result> getResults()
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.SearchedPlaceAdapter {
+- List<Candidates> mListCandidates
++ void setData(List<Candidates>)
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.BaseActivity {
+# ImageButton btn_info
+# LinearLayout infoVIew
+# void setImgTitleBarText(int)
+# void showAlertDialog(String,String,DialogInterface.OnClickListener,String)
+# void showAlertDialog(String,String,DialogInterface.OnClickListener,String,DialogInterface.OnClickListener,String)
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.SentHistoryCursorAdapter {
++ View newView(Context,Cursor,ViewGroup)
++ void bindView(View,Context,Cursor)
+- String insertEnterNextCpmma(String)
+- String getStateText(int,Context)
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.SentHistoryCursorAdapter$ViewHolder {
++ TextView txtSendDateTime
++ TextView txtReceiverMobile
++ TextView txtPlaceName
++ ImageView imgPlaceTaskType
++ TextView txtContents
++ TextView txtStateCode
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.MainActivity {
+- RecyclerView mRecyclerView
+- MyDBHandler myDBHandler
+- PlaceTaskAdapter mPlaceTaskadapter
+- MyServiceHandler mHandlerService
+- AlarmRegister mAlarmRegister
+# void onCreate(Bundle)
++ void setFindViewByID()
+# void onStart()
++ void checkPermission()
++ void onRequestPermissionsResult(int,String[],int[])
+- void showMenuLongClicked(int)
+- void changeSwitch(int,boolean)
+# void onStop()
+# void onDestroy()
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates {
+~ String formatted_address
+~ Candidates.Geometry geometry
+~ String name
++ String getPlaceName()
++ double getLatitude()
++ double getLongitude()
++ String getFormattedAddress()
++ String toString()
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry {
+~ Result.Geometry.LatLng location
+~ Result.Geometry.Rect viewport
++ Result.Geometry.Rect getViewport()
++ double getLatitude()
++ double getLongitude()
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry$Rect {
+~ Candidates.Geometry.LatLng northeast
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry$LatLng {
+~ double lat
+}
+class honeyimleaving.toyproject.honeyimleaving.myutil.Dlog {
+~ {static} String TAG
++ {static} void e(String)
++ {static} void w(String)
++ {static} void i(String)
++ {static} void d(String)
++ {static} void v(String)
++ {static} void ViewLog(TextView,String)
++ {static} String buildLogMsg(String)
+}
+class honeyimleaving.toyproject.honeyimleaving.fragment.PlaceFragment {
+- {static} long UPDATE_INTERVAL_IN_MILLISECONDS
+- {static} long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS
+- {static} int REQUEST_CHECK_SETTINGS
+- MapView mMapView
+- EditText mEditPlaceAlias
+- EditText mEditSearchLocation
+- ImageButton mBtnSearchLocation
+- ImageButton mBtnMoveCurrenLocation
+- FusedLocationProviderClient mFusedLocationClient
+- SettingsClient mSettingsClient
+- LocationRequest mLocationRequest
+- LocationSettingsRequest mLocationSettingsRequest
+- GoogleMap mGoogleMap
+- PlaceAlert mParam
+- Location mSelectedLocation
+- CustomDialogSearchedPlace mDialogSearchedPlace
+- String mErrMessage
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ void onMapReady(GoogleMap)
+- void initMovePosition()
+- void initEditBox()
+- void moveGoogleMapCarmeraAtLocation(Location,String)
+- void drawCycleRadius(LatLng,String)
+- void drawMarker(LatLng,String)
+- void selectPlaceFromLongClickInMap(LatLng)
+- void getCurrentLocation()
+- void createLocationRequest()
+- void buildLocationSettingsRequest()
++ void onDestroy()
++ void onLowMemory()
++ void onStart()
++ void onResume()
++ void onPause()
++ void onStop()
++ void onActivityCreated(Bundle)
++ void onDestroyView()
+- void showAlertDialog(String,String,DialogInterface.OnClickListener,String)
+- void setSelectedLocation(double,double)
++ PlaceAlert getFragementReturn()
++ String getErrorString()
++ boolean isError()
+}
+class honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving {
++ {static} float PLACE_RADIUS
+}
+class honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving$RequestedPermissionCode {
++ {static} int ACCESS_PERMISSION_ALL
+}
+class honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving$DBQuery {
++ {static} String TB_PLACE_ALERT_LIST
++ {static} String TB_ALERT_LIST
++ {static} String TB_PLACE_TASK_LIST
++ {static} String TB_SEND_HISTORY
++ {static} String QCreateTB_PLACE_ALERT_LIST
++ {static} String QCreateTB_ALERT_LIST
++ {static} String QCreateTB_PLACE_TASK_LIST
++ {static} String QCreateTB_SEND_HISTORY
++ {static} String getQueryDropTable(String)
+}
+class honeyimleaving.toyproject.honeyimleaving.model.Alert {
++ {static} int ALERT_TYPE_IN_REGION
++ {static} int ALERT_TYPE_OUT_REGION
++ {static} int ALERT_EXECUTE_TYPE_NOW
++ {static} int ALERT_EXECUTE_TYPE_SCHEDULE
++ {static} int HOUR_INDEX
++ {static} int MIN_INDEX
++ {static} byte MONDAY
++ {static} byte TUESDAY
++ {static} byte WEDNSDAY
++ {static} byte THURSDAY
++ {static} byte FRIDAY
++ {static} byte SATURDAY
++ {static} byte SUNDAY
++ {static} String REPEAT_WEEK_YES
++ {static} String REPEAT_WEEK_NO
+- int mAlertID
+- int[] mStartTime
+- int[] mFinishTime
+- int mRepeatDays
+- String mRepeatWeekYN
+- int mAlertType
+- int mAlertExecuteType
++ void addRepeatDays(byte)
++ void removeRepeatDays(byte)
++ void setStartTime(int[])
++ void setFinishTime(int[])
++ void setRepeatWeekOption(String)
++ int getAlertID()
++ int[] getStartTime()
++ int[] getFinishTime()
++ int getRepeatDays()
++ String getRepeatWeekYN()
++ int getAlertType()
++ void setAlertType(int)
++ int getAlertExecuteType()
++ void setAlertExecuteType(int)
+}
+class honeyimleaving.toyproject.honeyimleaving.model.Alert$Builder {
+- int alertID
+- int[] startTime
+- int[] finishTime
+- int repeatDays
+- String repeatWeekYN
+- int alertType
+- int alertExecuteType
++ Builder setStartTime(int[])
++ Builder setFinishTime(int[])
++ Builder setRepeatWeekOption(String)
++ Builder addRepeatDays(byte)
++ Builder removeRepeatDays(byte)
+}
+class honeyimleaving.toyproject.honeyimleaving.BaseApplication {
++ {static} boolean DEBUG
++ void onCreate()
+- boolean isDebuggable(Context)
+}
+class honeyimleaving.toyproject.honeyimleaving.service.HandlerServcie {
+- {static} String PACKAGE_NAME
+- {static} String EXTRA_STARTED_FROM_NOTIFICATION
++ {static} String TAG
+- NotificationManager mNotificationManager
+- {static} String CHANNEL_ID
+- {static} int NOTIFICATION_ID
+- {static} int NOTIFICATION_RESULT_ID
+- PlaceTaskGPSCheckService mService
+- boolean mBound
+- ServiceConnection mServiceConnection
++ int onStartCommand(Intent,int,int)
+# void onHandleIntent(Intent)
++ void onCreate()
++ void onDestroy()
++ void startService(PlaceTask)
++ void onStop()
++ void startService()
++ boolean isServiceRunningCheck()
++ boolean isEmptyWaitingTaskQueue()
++ void addTask(PlaceTask)
+- Notification getNotificationForForeground(CharSequence)
++ boolean serviceIsRunningInForeground(Context)
+- boolean isToday(Alert)
+}
+class honeyimleaving.toyproject.honeyimleaving.model.PlaceAlert {
+- int mPlaceAlertID
+- String mPlaceName
+- String mAddress
+- double mLatitude
+- double mLongitude
+- String mSmsContents
++ int getPlaceAlertID()
++ String getPlaceName()
++ String getAddress()
++ double getLatitude()
++ double getLongitude()
++ String getSmsContents()
++ void setSmsContents(String)
++ void setAddress(String)
+}
+class honeyimleaving.toyproject.honeyimleaving.model.PlaceAlert$Builder {
+- int placeAlertID
+- String placeName
+- String address
+- double latitude
+- double longitude
+- String smsContents
++ Builder setAddress(String)
++ Builder setSmsContents(String)
+}
+interface honeyimleaving.toyproject.honeyimleaving.fragment.FragmentReturnInterface {
++ T getFragementReturn()
++ String getErrorString()
++ boolean isError()
+}
+class honeyimleaving.toyproject.honeyimleaving.fragment.SmsSettingFragment {
+- EditText mEditSmsReceiver
+- EditText mEditSmsContents
+- String mSmsContents
+- ArrayList<String> mSmsReceiver
+- boolean mIsError
+- String mErrMessage
+- CheckBox mChkAlertMe
+- boolean mIsAlertMe
+- ImageButton mBtnSearchContact
+- int REQUEST_CONTACTS
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
++ ArrayList getFragementReturn()
++ String getErrorString()
++ boolean isError()
+- boolean checkValidation()
+- void setSmsInfoToEditView()
+- void setAlerMeCheckBox()
+- ArrayList<String> makeReturnArrList()
++ void onActivityResult(int,int,Intent)
+- void pasteNumberToSmsReceiverEdit(String)
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.SplashActivity {
+- Handler mHandler
+# void onCreate(Bundle)
+}
+interface honeyimleaving.toyproject.honeyimleaving.retrofit.MyGoogleGeocodingAPI {
++ {static} String BASE_URL
+~ Call<ResponseRevGeoCoding> getGeoCodeLocationFromAddress(String,String,String)
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.CustromDialogTimeSetting {
+- Button mBtnCancel
+- Button mBtnOK
+- TimePicker mTimePicker
+- int mHour
+- int mMin
+- onOkButtonClickListener mOnOkButtonClickListener
+# void onCreate(Bundle)
+- void setTimeFromTimePicker()
++ int getHours()
++ int getMin()
++ void show()
++ void show(int,int)
+}
+interface honeyimleaving.toyproject.honeyimleaving.custom.CustromDialogTimeSetting$onOkButtonClickListener {
+~ void click()
+}
+class honeyimleaving.toyproject.honeyimleaving.service.SendSmsHandler {
+- Context mContext
+- PlaceTask placeTask
++ void handleMessage(Message)
+- void sendSMS(int,ArrayList<String>,String)
+- void sendSMS(int,String,String)
+}
+class honeyimleaving.toyproject.honeyimleaving.service.SendSmsHandler$MySmsBroadcastReceiver {
++ void onReceive(Context,Intent)
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.ResponsePlace {
+~ List<Candidates> candidates
+~ String status
++ List<Candidates> getCandidates()
+}
+class honeyimleaving.toyproject.honeyimleaving.model.PlaceTask {
+- int mTaskID
+- PlaceAlert mPlaceAlert
+- Alert mAlert
+- ArrayList<String> mMobileNumbersList
+- String isUseYN
+- String isAlertMe
++ void setPlaceTaskObj(FragmentReturnInterface)
++ void printLog(String)
++ void setAlert(Alert)
++ void setPlaceAlert(PlaceAlert)
++ void addMobileNumber(String)
++ int getSizeMobileList()
++ String getMobileNumber(int)
++ void setAddrees(String)
++ void setSmsContents(String)
++ int getTaskID()
++ PlaceAlert getPlaceAlert()
++ Alert getAlert()
++ ArrayList<String> getMobileNumbersList()
++ int getAlertType()
++ void setPlaceTaskID(int)
++ boolean isUseYN()
++ void setUseYN(boolean)
++ boolean isAlertMe()
++ void setAlertMe(boolean)
++ void setAlertMe(String)
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskListItemViewHolder {
+- TextView mPlaceNameTxtView
+- TextView mAddressTxtView
+- TextView mStartTimeTxtView
+- TextView mFinishTimeTxtView
+- TextView mDashTextView
+- TextView[] mDaysTxtViewArr
+- ImageView mImgPlaceTaskType
+- TextView mTxtPlaceTaskType
+- ImageView mImgRepeat
+- ImageView mImgAlertMe
+- ImageView mImgAlertSms
+- Switch mSwitch
++ void setSwitchONOFF(boolean)
++ void setPlaceName(String)
++ void setAddress(String)
++ void setStartTime(int,int)
++ void setmFinishTime(int,int)
++ void setRepeat(String)
++ void setAlertMe(boolean)
++ void setAlertSms(ArrayList<String>)
++ void setTypeImage(int)
++ void setDaysTextView(int)
++ void setExecuteType(int)
++ void setOnClickListener(View.OnClickListener)
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.AddPlaceTaskActivity {
+- int MIN_STEP_INDEX
+- int MAX_STEP_INDEX
+- int mCurrentStep
+~ Button mBtnNextStep
+~ Button mBtnBackStep
+~ TextView mTxtHeadInfoTitle
+~ TextView mTxtHeadInfoDetail1
+~ TextView mTxtHeadInfoDetail2
+~ PlaceFragment mPlaceFragment
+~ AlertSettingFragment mAlertSettingFragment
+~ SmsSettingFragment mSmsSettingFragment
+~ PlaceTask mPlaceTask
+~ MyDBHandler mDBHandler
+~ AlarmRegister mAlarmRegister
+# void onCreate(Bundle)
+- void setBottomButton(int)
+- void setHeadInfoText(int)
+- void replaceFragment(int)
+# void onStop()
+- int nextStep()
+- int backStep()
+# void onDestroy()
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.AddPlaceTaskActivity$onClicklistener {
++ void onClick(View)
+- FragmentReturnInterface getInterface()
+}
+class honeyimleaving.toyproject.honeyimleaving.myutil.Util {
++ {static} String changeTimeToString(int,int)
++ {static} int getDaysByte(Calendar)
++ {static} String getMobileString(ArrayList<String>)
++ {static} ArrayList<String> getMobileArrList(String)
++ {static} String checkNullForQuery(String)
++ {static} String getVersion(Context)
++ {static} boolean isNumeric(String)
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result {
+~ String formatted_address
+~ Geometry geometry
+~ String place_id
+~ List<String> types
++ String getFormatted_address()
++ Geometry.LatLng getGeometryLocation()
++ String getPlace_id()
++ List<String> getTypes()
++ String toString()
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry {
+~ Rect bounds
+~ LatLng location
+~ String location_type
+~ Rect viewport
++ Rect getBounds()
++ LatLng getLocation()
++ String getLocation_type()
++ Rect getViewport()
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry$Rect {
+~ LatLng northeast
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry$LatLng {
+~ double lat
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.AlertActivity {
+- TextView mTxtAlertTitle
+- Button mBtnConfirmAlert
+- PlaceTask mParam
+- Vibrator mVibrator
+- ImageView mAlertSymbol
+- PowerManager.WakeLock mWakeLock
+# void onCreate(Bundle)
+# void onStart()
+- void playVibrator()
+- void wakeUp()
+# void onDestroy()
+}
+class honeyimleaving.toyproject.honeyimleaving.fragment.AlertSettingFragment {
+- CheckBox[] mChkBoxDaysArray
+- RadioGroup mRadioGrpAlertType
+- RadioButton mRadioBtnAlertTypeIn
+- RadioButton mRadioBtnAlertTypeOut
+- RadioGroup mRadioGrpAlertExecuteType
+- RadioButton mRadioBtnAlertExecuteNow
+- RadioButton mRadioBtnAlertExecuteSched
+- Button mBtnStartTime
+- Button mBtnFinishTime
+- CustromDialogTimeSetting mDialogTimeSetting
+- int mBtnTimeIdWhenClick
+- int[] mStrtTime
+- int[] mFinishTime
+- Alert mParam
+- boolean mIsErr
+- String mErrString
++ void onCreate(Bundle)
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void InitLayout(View)
+- void initBtnTimeTempValue()
+- void initChkBoxDays()
+- void initRadioBtnAlertType()
+- void initRadioBtnAlertExecuteType()
+- boolean chkAvailable()
++ Alert getFragementReturn()
++ String getErrorString()
++ boolean isError()
++ void onClick(View)
+- int getAlertTypeFromCheckRadioBtn()
+- int getAlertExecuteTypeFromCheckRadioBtn()
+- void setEnableSchduleGroup(boolean)
+}
+class honeyimleaving.toyproject.honeyimleaving.activity.SendHistoryActivity {
+- MyDBHandlerForSentHistory mDbSentHistroy
+- ListView mListView
+- Button mDeleteHistory
+- SentHistoryCursorAdapter mSendHistroyAdapter
++ void onCreate(Bundle)
++ void onStart()
+# void onStop()
+}
+class honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService {
+- {static} String PACKAGE_NAME
+- {static} String EXTRA_STARTED_FROM_NOTIFICATION
+- {static} String CHANNEL_ID
+- {static} int NOTIFICATION_ID
+- {static} int NOTIFICATION_RESULT_ID
+- {static} long UPDATE_INTERVAL_IN_MILLISECONDS
+- {static} long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS
+- FusedLocationProviderClient mFusedLocationClient
+- Queue<PlaceTask> mWaitingTaskQueue
+- Looper mServiceLooper
+- IBinder mBinder
+- ServiceHandler mServiceHandler
+- LocationRequest mLocationRequest
+- Location mCurrentLocation
+- LocationCallback mLocationCallback
+- NotificationManager mNotificationManager
+- SendSmsHandler mSendSmsHandler
+- MyDBHandler mDBHandler
+- void executeAlert(PlaceTask)
+- boolean timeCompareIsOverToCurrenTime(Alert)
+- boolean distanceCompare(PlaceAlert)
++ void onCreate()
++ int onStartCommand(Intent,int,int)
++ IBinder onBind(Intent)
++ void onRebind(Intent)
++ boolean onUnbind(Intent)
++ void onDestroy()
+- void createLocationRequest()
+- void getLastLocation()
+- void onNewLocation(Location)
++ void requestLocationUpdates()
++ void removeLocationUpdates()
++ boolean addPlaceTask(PlaceTask)
++ boolean removePlaceTask(Integer)
+- Notification getNotification(PlaceTask)
+- Notification getNotificationForForeground()
++ boolean serviceIsRunningInForeground(Context)
++ boolean isEmptyWaitingTaskQueue()
+- void mainNotifyUpdate()
++ void startForground()
+}
+class honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService$ServiceHandler {
++ void handleMessage(Message)
+}
+class honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService$LocalBinder {
++ PlaceTaskGPSCheckService getService()
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.CustomDialogSearchedPlace {
+- ListView mListContetns
+- Button mBtnCancel
+- AdapterView.OnItemClickListener mOnItemClickListener
+- SearchedPlaceAdapter mAdapter
++ void show(List)
+# void onCreate(Bundle)
++ Candidates getItem(int)
+}
+class honeyimleaving.toyproject.honeyimleaving.db.MyDBHandlerForSentHistory {
+- MyDBHelper mDBhelper
++ void close()
++ Cursor selectSentHistoryCursorAll()
++ ArrayList<SendHistory> selectSentHistoryAll()
++ boolean insertSendHistory(PlaceTask,int)
++ boolean deleteSendHistoryAll()
+}
+class honeyimleaving.toyproject.honeyimleaving.db.MyDBHandler {
+- MyDBHelper mDBhelper
++ int insertPlaceTask(PlaceTask)
++ boolean deletePlaceTask(PlaceTask)
+- Cursor selectPlaceTaskCursor(int)
++ ArrayList<PlaceTask> selectPlaceTaskList(int)
+- int insertPlaceTask(int,int,int,ArrayList,boolean,boolean)
+- int insertAlert(Alert)
+- int insertPlaceAlert(PlaceAlert)
+- boolean deleteData(String,int)
+- int getID(String)
+- int getRowCount(String,int)
++ boolean updateUseYN(int,boolean)
++ void close()
+}
+class honeyimleaving.toyproject.honeyimleaving.model.SendHistory {
+- String mHistoryId
+- String mSendDate
+- String mMobileNumber
+- String mPlaceName
+- double mLatitude
+- double mLongitude
+- int mAlertType
+- int mStateCode
++ String getHistoryId()
++ void setHistoryId(String)
++ String getSendDate()
++ void setSendDate(String)
++ String getMobileNumber()
++ void setMobileNumber(String)
++ String getPlaceName()
++ void setPlaceName(String)
++ double getLatitude()
++ void setLatitude(double)
++ double getLongitude()
++ void setLongitude(double)
++ int getAlertType()
++ void setAlertType(int)
++ int getStateCode()
++ void setStateCode(int)
+}
+class honeyimleaving.toyproject.honeyimleaving.service.MyServiceHandler {
+- PlaceTaskGPSCheckService mService
+- boolean mBound
+- Context mContext
+- ServiceConnection mServiceConnection
++ ServiceConnection getServiceConnection()
++ void onStop()
++ boolean BindService(Intent,int)
++ boolean isServiceRunningCheck()
++ boolean isEmptyWaitingTaskQueue()
++ void addTask(PlaceTask)
++ void removeTask(PlaceTask)
++ void startService()
+}
+class honeyimleaving.toyproject.honeyimleaving.retrofit.MyRetrofit {
+- {static} MyRetrofit retrofitInstance
+- Retrofit retrofit
+- MyGoogleGeocodingAPI mMyGoogleAPIService
+- MyGooglePlaceAPI mMyGooglePlaceAPI
++ {static} MyRetrofit getInstance()
++ MyGoogleGeocodingAPI getServiceGoolgeGeoCoding()
++ MyGooglePlaceAPI getSetviceGooglePlace()
+}
+class honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskAdapter {
+- ArrayList<PlaceTask> mPlaceTaskList
+- ItemLongClick mItemLongClick
+- View.OnClickListener mOnClickListener
++ int clickedPostion
++ RecyclerView.ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(RecyclerView.ViewHolder,int)
++ int getItemCount()
++ void replacePlaceTaskList(ArrayList<PlaceTask>)
++ PlaceTask getPlaceTask(int)
++ void deletePlaceTask(int)
++ void setOnClickListener(View.OnClickListener)
++ int getClickPostion()
+}
+interface honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskAdapter$ItemLongClick {
+~ void onLongClick(View,int)
+}
+class honeyimleaving.toyproject.honeyimleaving.receiver.AlarmRegister {
+- PlaceTask mPlaceTask
++ void addAlarm(PlaceTask)
+- boolean compareAlarmConditionAndSystemTime()
++ void registAlarmOrStartService(Context)
++ void removeAlarm(Context)
+- void setAlarm(Context,Calendar)
+}
+interface honeyimleaving.toyproject.honeyimleaving.retrofit.MyGooglePlaceAPI {
++ {static} String LANGUAGE
++ {static} String FIELDS
++ {static} String INPUTTYPE
+~ Call<ResponsePlace> getPlaceFromAddress(String,String,String,String,String)
+}
+class honeyimleaving.toyproject.honeyimleaving.fragment.FragmentReturnErrCheckUtil {
++ {static} String getErrorFragment(FragmentReturnInterface)
++ {static} boolean isErrorFragment(FragmentReturnInterface)
+}
+class honeyimleaving.toyproject.honeyimleaving.db.MyDBHelper {
++ {static} int DATABASE_VERSION
++ {static} String DATABASE_NAME
++ void onCreate(SQLiteDatabase)
++ void onUpgrade(SQLiteDatabase,int,int)
++ void onDowngrade(SQLiteDatabase,int,int)
+}
+
+
+android.widget.BaseAdapter <|-- honeyimleaving.toyproject.honeyimleaving.custom.SearchedPlaceAdapter
+android.support.v7.app.AppCompatActivity <|-- honeyimleaving.toyproject.honeyimleaving.activity.BaseActivity
+android.widget.CursorAdapter <|-- honeyimleaving.toyproject.honeyimleaving.custom.SentHistoryCursorAdapter
+honeyimleaving.toyproject.honeyimleaving.custom.SentHistoryCursorAdapter +.. honeyimleaving.toyproject.honeyimleaving.custom.SentHistoryCursorAdapter$ViewHolder
+honeyimleaving.toyproject.honeyimleaving.activity.BaseActivity <|-- honeyimleaving.toyproject.honeyimleaving.activity.MainActivity
+honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates +.. honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry
+honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry +.. honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry$Rect
+honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry +.. honeyimleaving.toyproject.honeyimleaving.retrofit.model.Candidates$Geometry$LatLng
+com.google.android.gms.maps.OnMapReadyCallback <|.. honeyimleaving.toyproject.honeyimleaving.fragment.PlaceFragment
+honeyimleaving.toyproject.honeyimleaving.fragment.FragmentReturnInterface <|.. honeyimleaving.toyproject.honeyimleaving.fragment.PlaceFragment
+android.support.v4.app.Fragment <|-- honeyimleaving.toyproject.honeyimleaving.fragment.PlaceFragment
+honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving +.. honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving$RequestedPermissionCode
+honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving +.. honeyimleaving.toyproject.honeyimleaving.HoneyImLeaving$DBQuery
+java.io.Serializable <|.. honeyimleaving.toyproject.honeyimleaving.model.Alert
+honeyimleaving.toyproject.honeyimleaving.model.Alert +.. honeyimleaving.toyproject.honeyimleaving.model.Alert$Builder
+android.app.Application <|-- honeyimleaving.toyproject.honeyimleaving.BaseApplication
+android.app.IntentService <|-- honeyimleaving.toyproject.honeyimleaving.service.HandlerServcie
+java.io.Serializable <|.. honeyimleaving.toyproject.honeyimleaving.model.PlaceAlert
+honeyimleaving.toyproject.honeyimleaving.model.PlaceAlert +.. honeyimleaving.toyproject.honeyimleaving.model.PlaceAlert$Builder
+honeyimleaving.toyproject.honeyimleaving.fragment.FragmentReturnInterface <|.. honeyimleaving.toyproject.honeyimleaving.fragment.SmsSettingFragment
+android.support.v4.app.Fragment <|-- honeyimleaving.toyproject.honeyimleaving.fragment.SmsSettingFragment
+android.support.v7.app.AppCompatActivity <|-- honeyimleaving.toyproject.honeyimleaving.activity.SplashActivity
+android.app.Dialog <|-- honeyimleaving.toyproject.honeyimleaving.custom.CustromDialogTimeSetting
+honeyimleaving.toyproject.honeyimleaving.custom.CustromDialogTimeSetting +.. honeyimleaving.toyproject.honeyimleaving.custom.CustromDialogTimeSetting$onOkButtonClickListener
+android.os.Handler <|-- honeyimleaving.toyproject.honeyimleaving.service.SendSmsHandler
+honeyimleaving.toyproject.honeyimleaving.service.SendSmsHandler +.. honeyimleaving.toyproject.honeyimleaving.service.SendSmsHandler$MySmsBroadcastReceiver
+honeyimleaving.toyproject.honeyimleaving.service.BroadcastReceiver <|-- honeyimleaving.toyproject.honeyimleaving.service.SendSmsHandler$MySmsBroadcastReceiver
+java.io.Serializable <|.. honeyimleaving.toyproject.honeyimleaving.model.PlaceTask
+honeyimleaving.toyproject.honeyimleaving.custom.ViewHolder <|-- honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskListItemViewHolder
+honeyimleaving.toyproject.honeyimleaving.activity.BaseActivity <|-- honeyimleaving.toyproject.honeyimleaving.activity.AddPlaceTaskActivity
+honeyimleaving.toyproject.honeyimleaving.activity.AddPlaceTaskActivity +.. honeyimleaving.toyproject.honeyimleaving.activity.AddPlaceTaskActivity$onClicklistener
+honeyimleaving.toyproject.honeyimleaving.activity.OnClickListener <|.. honeyimleaving.toyproject.honeyimleaving.activity.AddPlaceTaskActivity$onClicklistener
+honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result +.. honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry
+honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry +.. honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry$Rect
+honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry +.. honeyimleaving.toyproject.honeyimleaving.retrofit.model.Result$Geometry$LatLng
+honeyimleaving.toyproject.honeyimleaving.activity.BaseActivity <|-- honeyimleaving.toyproject.honeyimleaving.activity.AlertActivity
+honeyimleaving.toyproject.honeyimleaving.fragment.FragmentReturnInterface <|.. honeyimleaving.toyproject.honeyimleaving.fragment.AlertSettingFragment
+honeyimleaving.toyproject.honeyimleaving.fragment.OnClickListener <|.. honeyimleaving.toyproject.honeyimleaving.fragment.AlertSettingFragment
+android.support.v4.app.Fragment <|-- honeyimleaving.toyproject.honeyimleaving.fragment.AlertSettingFragment
+honeyimleaving.toyproject.honeyimleaving.activity.BaseActivity <|-- honeyimleaving.toyproject.honeyimleaving.activity.SendHistoryActivity
+android.app.Service <|-- honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService
+honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService +.. honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService$ServiceHandler
+honeyimleaving.toyproject.honeyimleaving.service.Handler <|-- honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService$ServiceHandler
+honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService +.. honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService$LocalBinder
+honeyimleaving.toyproject.honeyimleaving.service.Binder <|-- honeyimleaving.toyproject.honeyimleaving.service.PlaceTaskGPSCheckService$LocalBinder
+android.app.Dialog <|-- honeyimleaving.toyproject.honeyimleaving.custom.CustomDialogSearchedPlace
+honeyimleaving.toyproject.honeyimleaving.custom.Adapter <|-- honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskAdapter
+honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskAdapter +.. honeyimleaving.toyproject.honeyimleaving.custom.PlaceTaskAdapter$ItemLongClick
+android.database.sqlite.SQLiteOpenHelper <|-- honeyimleaving.toyproject.honeyimleaving.db.MyDBHelper
+@enduml
